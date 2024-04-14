@@ -1,4 +1,4 @@
-# Section 1
+# Metric Spaces
 ## Subsection 1.1
 This is some text with a formula: $$E = mc^2$$
 

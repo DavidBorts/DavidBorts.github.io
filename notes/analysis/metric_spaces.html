@@ -87,11 +87,11 @@
             <!-- links -->
             <br>
             <p>
-            <a href="https://github.com/DavidBorts" title="github"><img src="../images/github.png" style="max-height:40px;" class="img-responsive" ></a>
+            <a href="https://github.com/DavidBorts" title="github"><img src="../../images/github.png" style="max-height:40px;" class="img-responsive" ></a>
             </p>
 
             <!-- notes -->
-            <h2 id="post-title">Metric Spaces</h2>
+            <h1 id="post-title">Metric Spaces</h1>
             <div id="table-of-contents">
                 <!-- Table of Contents -->
             </div>
@@ -101,12 +101,12 @@
 
             <script>
                 document.addEventListener("DOMContentLoaded", function() {
-                    fetch('./metric_spaces.md')
+                    fetch('path_to_your_markdown_file.md')
                         .then(response => response.text())
                         .then(text => {
                             const renderedHtml = marked.parse(text);
                             document.getElementById('post-content').innerHTML = renderedHtml;
-        
+            
                             // Generating table of contents
                             const headers = Array.from(document.querySelectorAll('#post-content h1, #post-content h2'));
                             const tocHtml = headers.map((header, index) => {
@@ -115,6 +115,11 @@
                                 return `<a href="#${anchor}">${header.textContent}</a>`;
                             }).join('<br>');
                             document.getElementById('table-of-contents').innerHTML = tocHtml;
+            
+                            // Request MathJax to typeset/re-typeset the page
+                            MathJax.typesetPromise().then(() => {
+                                console.log('MathJax typesetting complete');
+                            }).catch(err => console.error('MathJax typesetting failed:', err));
                         })
                         .catch(error => console.error('Error loading the markdown file:', error));
                 });

@@ -7,11 +7,13 @@
   </style>
   
   <script>
-    fetch('./head.html')
-        .then(response => response.text())
-        .then(data => {
-            document.head.innerHTML += data;
-        });
+    fetch('head.html')
+      .then(response => response.text())
+      .then(data => {
+          document.head.innerHTML += data;
+          document.body.style.display = ""; // Show the body after head is loaded
+      })
+      .catch(error => console.error('Error loading the head:', error));
   </script>
   <!-- <title>David Borts</title> -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />

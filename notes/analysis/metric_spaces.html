@@ -55,6 +55,13 @@
         text-decoration: underline;
     }
     </style>
+
+  <style>
+    /* Initially hide the entire body to prevent FOUC */
+    body {
+        display: none;
+    }
+  </style>
 </head>
 
 <body>
@@ -71,28 +78,23 @@
         <div class="clearfix visible-xs-block"></div>
 
         <div class="container-fluid pt-3 d-sm-flex justify-content-between dashboard">
-            <h1>David Borts</h1>
-
-            <!-- navigation dashboard -->
-            <p>
-            <a href="https://davidborts.github.io">Home</a>
-            &nbsp;
-            <a href="https://davidborts.github.io/projects.html">Projects</a>
-            &nbsp;
-            <a href="https://davidborts.github.io/misc.html">Misc</a>
-            &nbsp;
-            <a href="https://DavidBorts.github.io/files/cv.pdf">CV</a>
-            &nbsp;
-            <!-- <br>
-            <a href="https://github.com/DavidBorts" title="github"><img src="./images/github.png" style="max-height:40px;" class="img-responsive" ></a>
-            &nbsp; -->
-            </p>
-
-            <!-- links -->
-            <br>
-            <p>
-            <a href="https://github.com/DavidBorts" title="github"><img src="../../images/github.png" style="max-height:40px;" class="img-responsive" ></a>
-            </p>
+            
+            <!-- loading navigation dashboard -->
+            <div id="menu"></div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    fetch('../../menu.html')
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('menu').innerHTML = html;
+                            // Show the body only after the HTML has been loaded
+                            document.body.style.display = "block";
+                        })
+                        .catch(error => {
+                            console.error('Failed to load the content:', error);
+                        });
+                });
+            </script>
 
             <!-- notes -->
             <h1 id="post-title">Metric Spaces</h1>

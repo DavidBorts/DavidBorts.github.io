@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Metric Spaces</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="dborts">
+    <meta name="keywords" content="David Borts, David Borts Princeton">
+    <meta name="robots" content="index,follow">
+    <link href="https://fonts.googleapis.com/css?family=Barlow|Syne|Arimo|Open+Sans" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://davidborts.github.io/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <script src="https://cdn.jsdelivr.net/npm/marked@4.0.0/marked.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+      body {
+        font: 1.5em/1.5 'Barlow';
+      }
+    
+      h1,
+      h2,
+      h3 {
+      line-height: 1.5;
+      }
+    
+    div.title {
+        font-weight: bold;
+    }
+
+    li {
+        margin: 1em auto;
+        line-height: 1.5;
+    }
+
+    a:link {
+        color: #6495ed;
+        text-decoration: none;
+    }
+
+    a:visited {
+        color: #6495ed;
+    }
+
+    a:hover {
+        color: #e77500;
+        text-decoration: underline;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+    <br>
+    <br>
+
+    <div class="row">
+        <div class="col-sm-3">
+        <br><br>
+        </div>
+
+        <div class="col-sm-9">
+        <div class="clearfix visible-xs-block"></div>
+
+        <div class="container-fluid pt-3 d-sm-flex justify-content-between dashboard">
+            <h1>David Borts</h1>
+
+            <!-- navigation dashboard -->
+            <p>
+            <a href="https://davidborts.github.io">Home</a>
+            &nbsp;
+            <a href="https://davidborts.github.io/projects.html">Projects</a>
+            &nbsp;
+            <a href="https://davidborts.github.io/misc.html">Misc</a>
+            &nbsp;
+            <a href="https://DavidBorts.github.io/files/cv.pdf">CV</a>
+            &nbsp;
+            <!-- <br>
+            <a href="https://github.com/DavidBorts" title="github"><img src="./images/github.png" style="max-height:40px;" class="img-responsive" ></a>
+            &nbsp; -->
+            </p>
+
+            <!-- links -->
+            <br>
+            <p>
+            <a href="https://github.com/DavidBorts" title="github"><img src="../images/github.png" style="max-height:40px;" class="img-responsive" ></a>
+            </p>
+
+            <!-- notes -->
+            <h2 id="post-title">Metric Spaces</h2>
+            <div id="table-of-contents">
+                <!-- Table of Contents -->
+            </div>
+            <div id="post-content">
+                <!-- Markdown content will be rendered here -->
+            </div>
+
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    fetch('./metric_spaces.md')
+                        .then(response => response.text())
+                        .then(text => {
+                            const renderedHtml = marked.parse(text);
+                            document.getElementById('post-content').innerHTML = renderedHtml;
+        
+                            // Generating table of contents
+                            const headers = Array.from(document.querySelectorAll('#post-content h1, #post-content h2'));
+                            const tocHtml = headers.map((header, index) => {
+                                const anchor = `header-${index}`;
+                                header.id = anchor;
+                                return `<a href="#${anchor}">${header.textContent}</a>`;
+                            }).join('<br>');
+                            document.getElementById('table-of-contents').innerHTML = tocHtml;
+                        })
+                        .catch(error => console.error('Error loading the markdown file:', error));
+                });
+            </script>
+        </div>
+        </div>
+    </div>
+    <hr>
+</body>
+</html>

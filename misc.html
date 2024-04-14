@@ -2,23 +2,30 @@
 <html>
 
 <head>
-  <title>David Borts</title>
+  <script>
+    fetch('./head.html')
+        .then(response => response.text())
+        .then(data => {
+            document.head.innerHTML += data;
+        });
+  </script>
+  <!-- <title>David Borts</title> -->
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="dborts">
   <meta name="keywords" content="David Borts, David Borts Princeton">
   <meta name="robots" content="index,follow">
   <meta name="description" content="David Borts homepage">
-  <link href="https://fonts.googleapis.com/css?family=Barlow|Syne|Arimo|Open+Sans" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Barlow|Syne|Arimo|Open+Sans" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> -->
   <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> -->
   <!--<link rel="stylesheet" type="text/css" media="screen,print" href="css/style.css" />-->
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"> -->
-  <link href="https://davidborts.github.io/css/bootstrap.min.css" rel="stylesheet" media="screen" />
+  <!-- <link href="https://davidborts.github.io/css/bootstrap.min.css" rel="stylesheet" media="screen" /> -->
 
-  <style>
+  <!-- <style>
     body {
       font: 1.5em/1.5 'Barlow';
     }
@@ -51,7 +58,7 @@
       color: #e77500;
       text-decoration: underline;
     }
-  </style>
+  </style> -->
 </head>
 
 <body>

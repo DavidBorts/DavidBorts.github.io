@@ -1,0 +1,7 @@
+.profile-picture {
+    background-image: url('../profile.png');
+    max-height: 400px;
+    width: 160px; /* Example width */
+    height: 160px; /* Example height */
+    background-size: cover; /* Or 'contain' depending on your needs */
+  }

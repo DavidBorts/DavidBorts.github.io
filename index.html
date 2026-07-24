@@ -51,6 +51,16 @@
       text-decoration: underline;
     }
   </style>
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
+        "@sparkjsdev/spark": "https://sparkjs.dev/releases/spark/2.1.0/spark.module.js"
+      }
+    }
+  </script>
 </head>
 
 <body>
@@ -84,7 +94,7 @@
               I'm a PhD student at ETH Zürich, supervised by <a href="https://prs.igp.ethz.ch/group/people/person-detail.schindler.html">Prof. Konrad Schindler</a>. My research interests are geometry foundation models, 3D generative models, and how to make them more geometrically consistent.
               <br>
               <br>
-              My background is in neural rendering and generalizing it beyond conventional cameras. Previously, I was a researcher at Princeton's <a href="https://light.princeton.edu/">Computational Imaging Lab</a>, advised by <a href="https://www.cs.princeton.edu/~fheide/">Prof. Felix Heide</a> and a master's student at ETH Zürich, where I was working with <a href="https://vision.ee.ethz.ch/people-details.OTAyMzM=.TGlzdC8zMjg3LC0xOTcxNDY1MTc4.html">Prof. Luc Van Gool</a>. I completed my undergraduate studies in Computer Science at Princeton.
+              My background is in neural rendering and its generalization beyond conventional cameras. Previously, I was a researcher at Princeton's <a href="https://light.princeton.edu/">Computational Imaging Lab</a>, advised by <a href="https://www.cs.princeton.edu/~fheide/">Prof. Felix Heide</a> and a master's student at ETH Zürich, where I was working with <a href="https://vision.ee.ethz.ch/people-details.OTAyMzM=.TGlzdC8zMjg3LC0xOTcxNDY1MTc4.html">Prof. Luc Van Gool</a>. I completed my undergraduate studies in Computer Science at Princeton.
             </p>
         </div>
       </div>
@@ -94,10 +104,10 @@
     <h3>News</h3>
     <ul>
       <li>
-        <b>[March 2026]</b> &nbsp; CaRaFe was just accepted to SIGGRAPH 2026 - Arxiv & code forthcoming!
+        <b>[May 2026]</b> &nbsp; I started my PhD at ETH Zürich with <a href="https://prs.igp.ethz.ch/group/people/person-detail.schindler.html">Prof. Konrad Schindler</a>.
       </li>
       <li>
-        <b>[March 2026]</b> &nbsp; I started my PhD at ETH Zürich with <a href="https://prs.igp.ethz.ch/group/people/person-detail.schindler.html">Prof. Konrad Schindler</a>.
+        <b>[March 2026]</b> &nbsp; CaRaFe was just accepted to SIGGRAPH 2026 - Arxiv & code forthcoming!
       </li>
       <li>
         <b>[March 2025]</b> &nbsp; I will be joining Adobe as a Research Scientist Intern this Summer
@@ -106,7 +116,7 @@
         <b>[September 2024]</b> &nbsp; I'm starting my master's in machine learning at ETH Zürich this Fall
       </li>
       <li>
-        <b>[August 2024]</b> &nbsp; <a href="https://light.princeton.edu/publication/radarfields/">Radar Fields</a> has been accepted as a <b>spotlight</b> at the ECCV 2024 workshop on <br> <a href="https://neural-fields-beyond-cams.github.io/">Neural Fields Beyond Conventional Cameras</a>
+        <b>[August 2024]</b> &nbsp; <a href="https://light.princeton.edu/publication/radarfields/">Radar Fields</a> has been accepted as a <b>spotlight</b> at the ECCV 2024 workshop on <br> <a href="https://neural-bcc.github.io/2024/2024.html#accepted">Neural Fields Beyond Conventional Cameras</a>
       </li>
       <li>
         <b>[April 2024]</b> &nbsp; <a href="https://light.princeton.edu/publication/radarfields/">Radar Fields</a> was accepted at SIGGRAPH 2024
@@ -122,7 +132,7 @@
           <div class="title">CaRaFe&#x1F3FA;: <u>Ca</u>mera-<u>Ra</u>dar Radiance <u>F</u>i<u>e</u>lds for Scene Reconstruction</div>
           <!-- <div><u>David Borts</u>, Julian Ost, Shamik Basu, Tim Broedermann, Andrea Ramazzina, Christos Sakaridis, Mario Bijelic, Felix Heide</div> -->
           <div>SIGGRAPH 2026</div>
-          <div>[forthcoming]</div>
+          <a href="https://princeton-computational-imaging.github.io/CaRaFe/">[project page]</a>
           <!-- <a href="https://light.princeton.edu/publication/radarfields/">[project page]</a> -->
         </li>
       </ul>
@@ -139,5 +149,8 @@
     <!-- <hr> -->
     </ul>
     <hr>
+
+  <!-- 3D splat headshot; falls back to profile.png if it cannot run -->
+  <script type="module" src="js/splat-headshot.js"></script>
 </body>
 </html>

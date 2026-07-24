@@ -1,0 +1,7 @@
+.DS_Store
+
+# Local scratch for the splat headshot: the tuning page and the experimental
+# optimized/pruned .spz variants. Kept on disk, deliberately not published --
+# the site ships the original david.spz unmodified.
+demo/
+tools/

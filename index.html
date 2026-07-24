@@ -61,6 +61,41 @@
       }
     }
   </script>
+
+  <!--
+    Hold the page back until the splat headshot has drawn its first frame, so it
+    is never seen swapping in over the photo. Deliberately inline and ahead of
+    <body> so nothing paints first.
+
+    The safety net lives here rather than in the module, because the failures
+    worth surviving are the ones where the module never runs at all: no import
+    map support, a blocked CDN, a syntax error. Any of those, and the page shows
+    anyway -- a blank site is far worse than a visible swap.
+  -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var revealed = false;
+
+      function reveal() {
+        if (revealed) return;
+        revealed = true;
+        clearTimeout(timer);
+        root.classList.remove('splat-gate');
+      }
+      window.__revealPage = reveal;
+
+      // No import maps means the module below can never run: don't wait on it.
+      var canModule = window.HTMLScriptElement
+        && HTMLScriptElement.supports
+        && HTMLScriptElement.supports('importmap');
+      if (!canModule) return;
+
+      root.classList.add('splat-gate');
+      var timer = setTimeout(reveal, 8000);
+      window.addEventListener('pageshow', function (e) { if (e.persisted) reveal(); });
+    })();
+  </script>
 </head>
 
 <body>
@@ -76,11 +111,8 @@
           <div class="profile-picture">
           </div>
         </a>
-        <p>
-          <p style="text-align: center;">
-              <a href="https://scholar.google.com/citations?user=X_eC3oMAAAAJ&hl=en">[Google Scholar]</a>
-            </p>
-        </p>
+        <p class="profile-links">
+          <a href="https://scholar.google.com/citations?user=X_eC3oMAAAAJ&hl=en">[Google Scholar]</a>
         </p>
       </div>
 

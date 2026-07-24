@@ -1,14 +1,18 @@
 // Replaces the profile photo with a 3D gaussian-splat reconstruction of the same
 // head, rendered with Spark (https://sparkjs.dev).
 //
-// Strictly a progressive enhancement: profile.png stays as the background of
-// .profile-picture and is what you see if anything here declines to run --
-// no WebGL2, no ES modules, CDN blocked, fetch failure, decode failure. The
-// canvas only fades in once the splat is actually on screen, so a failure is
-// invisible rather than a broken frame.
+// The page is held back (see the inline gate in index.html) until the first
+// frame is drawn, so the splat is never seen swapping in over profile.png. That
+// means this runs eagerly -- no waiting for the headshot to scroll into view,
+// since the page cannot appear until it is done. It also means the photo is
+// removed once the splat is live rather than left underneath, where its dark
+// edges showed as a thin dark outline around the canvas.
 //
-// Cost control, in rough order of how much it matters:
-//   * nothing is fetched or allocated until the headshot scrolls into view
+// profile.png remains the fallback for anything that stops this from running:
+// no WebGL2, no import maps, CDN blocked, fetch or decode failure. Every one of
+// those paths must still reveal the page, so failures reveal and give up.
+//
+// Cost control:
 //   * the render loop stops when off screen or when the tab is hidden -- a splat
 //     renderer re-sorts by depth every frame, so an idle loop is pure waste
 //   * device pixel ratio is capped at 2 (a 160px box needs no more)
@@ -45,9 +49,17 @@ const HEAD_Z = 0.05;
 const YAW_LIMIT = 42;
 const PITCH_LIMIT = 22;
 
+// Releasing the page is the one thing that must always happen, on every path.
+const revealPage = () => window.__revealPage?.();
+
+// Declared before start() runs, which assigns it synchronously.
+let canvas = null;
+
 const host = document.querySelector(".profile-picture");
 if (host && supported()) {
-  start(host).catch(() => teardown());
+  start(host).catch(() => { teardown(); revealPage(); });
+} else {
+  revealPage();
 }
 
 function supported() {
@@ -62,17 +74,12 @@ function supported() {
   }
 }
 
-let canvas = null;
-
 function teardown() {
   canvas?.remove();
   canvas = null;
 }
 
 async function start(host) {
-  // Wait until the headshot is actually on screen before spending anything.
-  await visible(host);
-
   canvas = document.createElement("canvas");
   canvas.className = "profile-splat";
   canvas.setAttribute("aria-hidden", "true");
@@ -216,19 +223,12 @@ async function start(host) {
     renderer.render(scene, camera);
   }
 
-  // First frame drawn before the fade, so the photo never crossfades to blank.
+  // Draw before revealing, and only drop the photo once there is a real frame to
+  // replace it with -- so there is no blank box even for one frame.
   frame(performance.now());
-  canvas.classList.add("ready");
+  host.classList.add("splat-live");
+  revealPage();
   sync();
-}
-
-function visible(el) {
-  return new Promise((resolve) => {
-    const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) { io.disconnect(); resolve(); }
-    }, { rootMargin: "200px" });
-    io.observe(el);
-  });
 }
 
 function clamp(v, lo, hi) {

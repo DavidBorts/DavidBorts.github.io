@@ -1,3 +1,12 @@
+/* Hold the whole page back until the splat headshot has drawn, so it is never
+   seen swapping in over the photo. visibility (not display) keeps layout and
+   intersection observers working while nothing paints. The class is added by an
+   inline script in <head> and removed once the splat is up, or by that script's
+   own timeout if the viewer never gets going. */
+html.splat-gate body {
+    visibility: hidden;
+  }
+
 .profile-picture {
     background-image: url('../profile.png');
     max-height: 400px;
@@ -7,9 +16,16 @@
     position: relative; /* anchor for the splat canvas; does not affect layout */
   }
 
-/* 3D splat headshot, layered over profile.png. The photo stays visible until
-   the splat has drawn its first frame, and remains the fallback if the viewer
-   never starts. Borderless, and it clears to white to match the page. */
+/* Once the splat is live the photo comes off entirely. It is only a fallback,
+   and leaving it behind a transparent canvas let its dark edges show as a thin
+   dark outline wherever the canvas did not land on an exact device pixel. */
+.profile-picture.splat-live {
+    background-image: none;
+    background-color: #fff;
+  }
+
+/* 3D splat headshot, filling the same 160x160 box as the photo. Borderless, no
+   focus ring, compositing over white. */
 .profile-picture canvas.profile-splat {
     position: absolute;
     inset: 0;
@@ -17,18 +33,23 @@
     width: 100%;
     height: 100%;
     border: 0;
+    outline: none;
     background: transparent;
-    opacity: 0;
-    transition: opacity .5s ease;
     cursor: grab;
     /* Claim horizontal drags for rotation, leave vertical ones to page scroll. */
     touch-action: pan-y;
   }
 
-.profile-picture canvas.profile-splat.ready {
-    opacity: 1;
-  }
-
 .profile-picture canvas.profile-splat:active {
     cursor: grabbing;
+  }
+
+/* Links under the headshot. Constrained to the headshot's own width so they
+   centre under it rather than across the column: on narrow screens the column
+   goes full width, which used to throw these ~100px to the right of the image
+   they belong to. */
+.profile-links {
+    width: 160px;
+    text-align: center;
+    margin: 0;
   }
